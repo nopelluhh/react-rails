@@ -658,7 +658,7 @@ yarn install
 ### Undefined Set
 ```
 ExecJS::ProgramError (identifier 'Set' undefined):
-  
+
 (execjs):1
 ```
 If you see any variation of this issue, see [Using TheRubyRacer](#using-therubyracer)
@@ -673,6 +673,21 @@ LibV8 itself is already [beyond version 7](https://github.com/cowboyd/libv8/rele
 HMR is possible with this gem as it does just pass through to Webpacker. Please open an issue to let us know tips and tricks for it to add to the wiki.
 
 One example: [Stack Overflow answer with Babel and Webpacker config](https://stackoverflow.com/a/54846330/193785)
+
+### Server Rendering
+Using dynamic JavaScript's `import('../path/to/file')` syntax can cause an `ExecJS::ProgramError` with the message `ReferenceError: window is not defined`.
+
+To avoid this, add
+
+```
+{
+  output: {
+    globalObject: 'this'
+  }
+}
+```
+
+to your Webpack config. See [their documentation](https://webpack.js.org/configuration/output/#outputglobalobject) for more details.
 
 ## Related Projects
 
